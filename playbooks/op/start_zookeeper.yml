@@ -1,0 +1,14 @@
+---
+- hosts: "{{ server | default('production') }}"
+  vars_files:
+    - ../../group_vars/production/confluent_standalone
+  tasks:
+    - name: start zookeeper
+      shell:
+        cmd: ./bin/zookeeper-server-start etc/kafka/zookeeper.properties & 
+        chdir: "{{confluent_standalone_root_dir}}/default"
+    - name: wait for port 2181
+      wait_for:
+        port: 2181
+
+# vim: et sw=2 ts=2:

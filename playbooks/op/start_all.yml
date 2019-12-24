@@ -1,0 +1,5 @@
+---
+- include: start_zookeeper.yml
+- include: start_kafka.yml
+
+# vim: et sw=2 ts=2:

@@ -1,0 +1,28 @@
+---
+# tasks file for confluent_standalone
+- block:
+
+  - name: mkdir Confluent
+    file:
+      path: "{{confluent_standalone_root_dir}}"
+      state: directory
+
+  - name: download Confluent Platform package
+    get_url:
+      url: "http://packages.confluent.io/archive/{{confluent_standalone_base_ver}}/confluent-{{confluent_standalone_full_ver}}.tar.gz"
+      dest: "{{confluent_standalone_root_dir}}"
+
+  - name: unarchive package
+    unarchive:
+      src: "{{confluent_standalone_root_dir}}/confluent-{{confluent_standalone_full_ver}}.tar.gz"
+      dest: "{{confluent_standalone_root_dir}}"
+      remote_src: yes
+      creates: "{{confluent_standalone_root_dir}}/confluent-{{confluent_standalone_full_ver}}/README"
+
+  - name: configure alernatives for confluent_standalone
+    alternatives:
+      name: confluent_standalone 
+      link: "{{confluent_standalone_root_dir}}/default"
+      path: "{{confluent_standalone_root_dir}}/confluent-{{confluent_standalone_ver}}"
+
+# vim: et ts=2 sw=2:
