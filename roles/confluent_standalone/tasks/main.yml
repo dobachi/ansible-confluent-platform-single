@@ -25,4 +25,12 @@
       link: "{{confluent_standalone_root_dir}}/default"
       path: "{{confluent_standalone_root_dir}}/confluent-{{confluent_standalone_ver}}"
 
+  - name: install cli
+    shell:
+      cmd: curl -L https://cnfl.io/cli | sh -s -- -b {{confluent_standalone_root_dir}}/default/bin
+      creates: "{{confluent_standalone_root_dir}}/default/bin/confluent"
+
+  tags:
+    - confluent_standalone
+
 # vim: et ts=2 sw=2:
