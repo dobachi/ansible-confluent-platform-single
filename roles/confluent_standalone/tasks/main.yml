@@ -2,33 +2,26 @@
 # tasks file for confluent_standalone
 - block:
 
-  - name: mkdir Confluent
-    file:
-      path: "{{confluent_standalone_root_dir}}"
-      state: directory
+  - name: import_key
+    rpm_key:
+      state: present
+      key: https://packages.confluent.io/rpm/5.5/archive.key
 
-  - name: download Confluent Platform package
-    get_url:
-      url: "http://packages.confluent.io/archive/{{confluent_standalone_base_ver}}/confluent-{{confluent_standalone_full_ver}}.tar.gz"
-      dest: "{{confluent_standalone_root_dir}}"
+  - name: copy_repo
+    template:
+      src: cp.repo.j2
+      dest: /etc/yum.repos.d/cp.repo
 
-  - name: unarchive package
-    unarchive:
-      src: "{{confluent_standalone_root_dir}}/confluent-{{confluent_standalone_full_ver}}.tar.gz"
-      dest: "{{confluent_standalone_root_dir}}"
-      remote_src: yes
-      creates: "{{confluent_standalone_root_dir}}/confluent-{{confluent_standalone_full_ver}}/README"
-
-  - name: configure alernatives for confluent_standalone
-    alternatives:
-      name: confluent_standalone 
-      link: "{{confluent_standalone_root_dir}}/default"
-      path: "{{confluent_standalone_root_dir}}/confluent-{{confluent_standalone_ver}}"
+  - name: install_confluent-platform-2.12
+    yum:
+      name: confluent-platform-2.12
+      state: installed
+      update_cache: yes
 
   - name: install cli
     shell:
-      cmd: curl -L https://cnfl.io/cli | sh -s -- -b {{confluent_standalone_root_dir}}/default/bin
-      creates: "{{confluent_standalone_root_dir}}/default/bin/confluent"
+      cmd: curl -L https://cnfl.io/cli | sh -s -- -b /usr/local/bin
+      creates: "/usr/local/bin/confluent"
 
   tags:
     - confluent_standalone

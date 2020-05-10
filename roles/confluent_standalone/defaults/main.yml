@@ -1,7 +1,6 @@
 ---
 # defaults file for confluent_standalone
 
-confluent_standalone_root_dir: "/opt/confluent_standalone"
-confluent_standalone_base_ver: "5.3"
-confluent_standalone_ver: "5.3.2"
-confluent_standalone_full_ver: "5.3.2-2.12"
+confluent_standalone_base_ver: "5.5"
+confluent_standalone_ver: "5.5.0"
+confluent_standalone_full_ver: "5.3.0-2.12"
