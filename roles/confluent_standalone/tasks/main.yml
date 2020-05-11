@@ -18,6 +18,34 @@
       state: installed
       update_cache: yes
 
+  - name: template_server.properties
+    template:
+      src: server.properties.j2
+      dest: /etc/kafka/server.properties
+
+  - name: template_ksql-server.properties
+    template:
+      src: ksql-server.properties.j2
+      dest: /etc/ksqldb/ksql-server.properties
+
+  - name: template_schema-registory.properties
+    template:
+      src: schema-registry.properties.j2
+      dest: /etc/schema-registry/schema-registry.properties
+
+  - name: template_control-center.properties.j2
+    template:
+      src: control-center.properties.j2
+      dest: /etc/confluent-control-center/control-center-production.properties
+
+  - name: mkdir_/var/lib/kafka-streams
+    file:
+      path: /var/lib/kafka-streams
+      state: directory
+      owner: cp-kafka
+      group: confluent
+      mode: 0775
+
   - name: install cli
     shell:
       cmd: curl -L https://cnfl.io/cli | sh -s -- -b /usr/local/bin

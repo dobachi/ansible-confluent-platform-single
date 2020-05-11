@@ -1,0 +1,9 @@
+---
+# tasks file for roles/kafka_connect_datagen
+- block:
+
+  - name: install_kafka-connect-datagen
+    shell: confluent-hub install --no-prompt confluentinc/kafka-connect-datagen:latest
+
+  tags:
+    - kafka_connect_datagen

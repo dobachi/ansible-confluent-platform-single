@@ -1,15 +1,9 @@
 ---
 - hosts: "{{ server | default('production') }}"
-  vars_files:
-    - ../../group_vars/production/confluent_standalone
   tasks:
     - name: stop kafka
-      shell:
-        cmd: ./bin/kafka-server-stop etc/kafka/server.properties &
-        chdir: "{{confluent_standalone_root_dir}}/default"
-    - name: wait for port 9096
-      wait_for:
-        port: 9096
+      service:
+        name: confluent-kafka
         state: stopped
 
 # vim: et sw=2 ts=2:

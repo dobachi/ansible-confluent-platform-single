@@ -1,9 +1,9 @@
 ---
 - hosts: "{{ server | default('production') }}"
   tasks:
-    - name: stop zookeeper
+    - name: stop_confluent-kafka-connect
       service:
-        name: confluent-zookeeper
+        name: confluent-kafka-connect
         state: stopped
 
 # vim: et sw=2 ts=2:

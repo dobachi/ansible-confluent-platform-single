@@ -2,5 +2,6 @@
 - hosts: "{{ server | default('production') }}"
   roles:
     - confluent_standalone
+    - kafka_connect_datagen
 
 # vim: et sw=2 ts=2:

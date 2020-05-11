@@ -1,4 +1,9 @@
 ---
+- import_playbook: stop_kafka_connect.yml
+- import_playbook: stop_kafka_rest.yml
+- import_playbook: stop_ksqldb.yml
+- import_playbook: stop_control_center.yml
+- import_playbook: stop_schema_registry.yml
 - import_playbook: stop_kafka.yml
 - import_playbook: stop_zookeeper.yml
 

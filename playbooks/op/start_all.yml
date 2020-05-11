@@ -1,5 +1,10 @@
 ---
-- include: start_zookeeper.yml
-- include: start_kafka.yml
+- import_playbook: start_zookeeper.yml
+- import_playbook: start_kafka.yml
+- import_playbook: start_schema_registry.yml
+- import_playbook: start_control_center.yml
+- import_playbook: start_kafka_connect.yml
+- import_playbook: start_kafka_rest.yml
+- import_playbook: start_ksqldb.yml
 
 # vim: et sw=2 ts=2:
